@@ -89,30 +89,15 @@
 
 
         /* MONSTERS */
-        .monsters { padding: 100px 24px; max-width: 1000px; margin: 0 auto; }
-        .world-grid { display: flex; flex-direction: column; gap: 16px; }
-        .world-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 24px 28px; display: flex; align-items: center; gap: 24px; transition: transform 0.3s, border-color 0.3s; }
-        .world-card:hover { transform: translateX(4px); border-color: var(--purple); }
-        .world-label { flex-shrink: 0; width: 80px; text-align: center; }
-        .world-num { font-size: 32px; font-weight: 900; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; line-height: 1; }
-        .world-sky { font-size: 11px; color: var(--text-dim); margin-top: 4px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
-        .world-divider { width: 1px; height: 60px; background: var(--border); flex-shrink: 0; }
-        .monster-display { display: flex; gap: 32px; flex: 1; }
-        .creature-slot { display: flex; flex-direction: column; align-items: center; gap: 8px; }
-        .creature-frame { width: 72px; height: 72px; border-radius: 16px; display: flex; align-items: center; justify-content: center; padding: 8px; }
-        .frame-normal { background: linear-gradient(135deg, rgba(107,181,255,0.12), rgba(107,181,255,0.04)); border: 1px solid rgba(107,181,255,0.2); }
-        .frame-boss { background: linear-gradient(135deg, rgba(255,107,157,0.15), rgba(214,107,255,0.08)); border: 1px solid rgba(255,107,157,0.3); }
-        .creature-frame img { max-width: 52px; max-height: 52px; object-fit: contain; filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255,255,255,0.2)); }
-        .frame-boss img { max-width: 56px; max-height: 56px; filter: brightness(0) invert(1) drop-shadow(0 0 10px rgba(255,107,157,0.4)); }
-        .creature-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        .label-normal { color: var(--cyan); }
-        .label-boss { color: var(--pink); }
-        @media (max-width: 600px) {
-            .world-card { flex-wrap: wrap; padding: 20px; gap: 16px; }
-            .world-label { width: auto; text-align: left; }
-            .world-divider { display: none; }
-            .monster-display { gap: 24px; }
-        }
+        .monsters { padding: 100px 24px; max-width: 900px; margin: 0 auto; }
+        .monster-flow { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 12px; }
+        .world-pair { display: flex; align-items: center; gap: 6px; }
+        .world-pair-label { font-size: 11px; font-weight: 700; color: var(--text-dim); margin-bottom: 4px; text-align: center; opacity: 0.5; }
+        .m-img { width: 48px; height: 48px; object-fit: contain; filter: brightness(0) invert(1); opacity: 0.85; transition: opacity 0.2s, transform 0.2s; }
+        .m-img:hover { opacity: 1; transform: scale(1.15); }
+        .m-img.boss { width: 58px; height: 58px; }
+        .flow-arrow { color: var(--border); font-size: 20px; margin: 0 4px; opacity: 0.4; }
+        @media (max-width: 600px) { .m-img { width: 40px; height: 40px; } .m-img.boss { width: 50px; height: 50px; } .flow-arrow { font-size: 16px; } }
         /* CONTACT */
         .contact { padding: 100px 24px; background: radial-gradient(ellipse at 50% 0%, rgba(107,181,255,0.06) 0%, transparent 50%); }
         .contact-card { max-width: 520px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; }
@@ -216,135 +201,39 @@
 
     <!-- MONSTERS -->
     <section class="monsters" id="monsters">
-        <h2 class="section-title">Meet the Monsters</h2>
-        <p class="section-subtitle">6 worlds — each with its own monster and boss to defeat</p>
-        <div class="world-grid">
-            <div class="world-card">
-                <div class="world-label">
-                    <div class="world-num">1</div>
-                    <div class="world-sky">Sky 1</div>
-                </div>
-                <div class="world-divider"></div>
-                <div class="monster-display">
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-normal">
-                            <img src="/images/assets/world1-monster.png" alt="World 1 Monster" loading="lazy">
-                        </div>
-                        <span class="creature-label label-normal">Monster</span>
-                    </div>
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-boss">
-                            <img src="/images/assets/world1-boss.png" alt="World 1 Boss" loading="lazy">
-                        </div>
-                        <span class="creature-label label-boss">Boss</span>
-                    </div>
-                </div>
+        <h2 class="section-title">6 Worlds to Conquer</h2>
+        <p class="section-subtitle">Each world has its monster and boss</p>
+        <div class="monster-flow">
+            <div class="world-pair">
+                <img class="m-img" src="/images/assets/world1-monster.png" alt="World 1" loading="lazy">
+                <img class="m-img boss" src="/images/assets/world1-boss.png" alt="World 1 Boss" loading="lazy">
             </div>
-            <div class="world-card">
-                <div class="world-label">
-                    <div class="world-num">2</div>
-                    <div class="world-sky">Sky 1</div>
-                </div>
-                <div class="world-divider"></div>
-                <div class="monster-display">
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-normal">
-                            <img src="/images/assets/world2-monster.png" alt="World 2 Monster" loading="lazy">
-                        </div>
-                        <span class="creature-label label-normal">Monster</span>
-                    </div>
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-boss">
-                            <img src="/images/assets/world2-boss.png" alt="World 2 Boss" loading="lazy">
-                        </div>
-                        <span class="creature-label label-boss">Boss</span>
-                    </div>
-                </div>
+            <span class="flow-arrow">→</span>
+            <div class="world-pair">
+                <img class="m-img" src="/images/assets/world2-monster.png" alt="World 2" loading="lazy">
+                <img class="m-img boss" src="/images/assets/world2-boss.png" alt="World 2 Boss" loading="lazy">
             </div>
-            <div class="world-card">
-                <div class="world-label">
-                    <div class="world-num">3</div>
-                    <div class="world-sky">Sky 1</div>
-                </div>
-                <div class="world-divider"></div>
-                <div class="monster-display">
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-normal">
-                            <img src="/images/assets/world3-monster.png" alt="World 3 Monster" loading="lazy">
-                        </div>
-                        <span class="creature-label label-normal">Monster</span>
-                    </div>
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-boss">
-                            <img src="/images/assets/world3-boss.png" alt="World 3 Boss" loading="lazy">
-                        </div>
-                        <span class="creature-label label-boss">Boss</span>
-                    </div>
-                </div>
+            <span class="flow-arrow">→</span>
+            <div class="world-pair">
+                <img class="m-img" src="/images/assets/world3-monster.png" alt="World 3" loading="lazy">
+                <img class="m-img boss" src="/images/assets/world3-boss.png" alt="World 3 Boss" loading="lazy">
             </div>
-            <div class="world-card">
-                <div class="world-label">
-                    <div class="world-num">4</div>
-                    <div class="world-sky">Sky 1</div>
-                </div>
-                <div class="world-divider"></div>
-                <div class="monster-display">
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-normal">
-                            <img src="/images/assets/world4-monster.png" alt="World 4 Monster" loading="lazy">
-                        </div>
-                        <span class="creature-label label-normal">Monster</span>
-                    </div>
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-boss">
-                            <img src="/images/assets/world4-boss.png" alt="World 4 Boss" loading="lazy">
-                        </div>
-                        <span class="creature-label label-boss">Boss</span>
-                    </div>
-                </div>
+            <span class="flow-arrow">→</span>
+            <div class="world-pair">
+                <img class="m-img" src="/images/assets/world4-monster.png" alt="World 4" loading="lazy">
+                <img class="m-img boss" src="/images/assets/world4-boss.png" alt="World 4 Boss" loading="lazy">
             </div>
-            <div class="world-card">
-                <div class="world-label">
-                    <div class="world-num">5</div>
-                    <div class="world-sky">Sky 2</div>
-                </div>
-                <div class="world-divider"></div>
-                <div class="monster-display">
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-normal">
-                            <img src="/images/assets/world5-monster.png" alt="World 5 Monster" loading="lazy">
-                        </div>
-                        <span class="creature-label label-normal">Monster</span>
-                    </div>
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-boss">
-                            <img src="/images/assets/world5-boss.png" alt="World 5 Boss" loading="lazy">
-                        </div>
-                        <span class="creature-label label-boss">Boss</span>
-                    </div>
-                </div>
+            <span class="flow-arrow">→</span>
+            <div class="world-pair">
+                <img class="m-img" src="/images/assets/world5-monster.png" alt="World 5" loading="lazy">
+                <img class="m-img boss" src="/images/assets/world5-boss.png" alt="World 5 Boss" loading="lazy">
             </div>
-            <div class="world-card">
-                <div class="world-label">
-                    <div class="world-num">6</div>
-                    <div class="world-sky">Sky 2</div>
-                </div>
-                <div class="world-divider"></div>
-                <div class="monster-display">
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-normal">
-                            <img src="/images/assets/world6-monster.png" alt="World 6 Monster" loading="lazy">
-                        </div>
-                        <span class="creature-label label-normal">Monster</span>
-                    </div>
-                    <div class="creature-slot">
-                        <div class="creature-frame frame-boss">
-                            <img src="/images/assets/world6-boss.png" alt="World 6 Boss" loading="lazy">
-                        </div>
-                        <span class="creature-label label-boss">Boss</span>
-                    </div>
-                </div>
+            <span class="flow-arrow">→</span>
+            <div class="world-pair">
+                <img class="m-img" src="/images/assets/world6-monster.png" alt="World 6" loading="lazy">
+                <img class="m-img boss" src="/images/assets/world6-boss.png" alt="World 6 Boss" loading="lazy">
             </div>
+            
         </div>
     </section>
 
