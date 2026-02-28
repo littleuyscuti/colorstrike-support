@@ -8,31 +8,22 @@
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root { --bg-deep: #06061a; --bg-card: #12123a; --border: #1e1e5a; --cyan: #6bb5ff; --purple: #d66bff; --text: #e8e8ff; --text-dim: #8888bb; --green: #6bff9d; --gold: #ffd93d; --pink: #ff6b9d; }
+        :root { --bg-deep: #06061a; --bg-card: #12123a; --border: #1e1e5a; --cyan: #6bb5ff; --purple: #d66bff; --text: #e8e8ff; --text-dim: #8888bb; --green: #6bff9d; --gold: #ffd93d; }
         body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text); line-height: 1.7; }
         .container { max-width: 700px; margin: 0 auto; padding: 60px 24px 80px; }
         .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--cyan); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 40px; transition: opacity 0.2s; }
         .back-link:hover { opacity: 0.8; }
         h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
         .page-subtitle { color: var(--text-dim); font-size: 16px; margin-bottom: 48px; }
-
         .update-section { margin-bottom: 48px; }
-        .update-section h2 { font-size: 22px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .update-section h2 { font-size: 20px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
         .badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
         .badge-coming { background: rgba(107,181,255,0.15); color: var(--cyan); }
-        .badge-fixed { background: rgba(107,255,157,0.15); color: var(--green); }
-        .badge-new { background: rgba(255,217,61,0.15); color: var(--gold); }
-
-        .update-list { list-style: none; }
-        .update-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 12px; transition: border-color 0.2s; }
-        .update-item:hover { border-color: var(--cyan); }
-        .update-item h3 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+        .badge-latest { background: rgba(107,255,157,0.15); color: var(--green); }
+        .update-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 12px; }
+        .update-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
         .update-item p { color: var(--text-dim); font-size: 14px; }
-        .update-date { color: var(--text-dim); font-size: 12px; opacity: 0.6; }
-
-        .empty-state { text-align: center; padding: 60px 20px; color: var(--text-dim); }
-        .empty-state .emoji { font-size: 48px; margin-bottom: 12px; }
-
+        .version-tag { color: var(--text-dim); font-size: 13px; margin-bottom: 16px; opacity: 0.7; }
         footer { text-align: center; color: var(--text-dim); font-size: 13px; opacity: 0.6; margin-top: 60px; border-top: 1px solid var(--border); padding-top: 24px; }
     </style>
 </head>
@@ -41,29 +32,49 @@
         <a href="/" class="back-link">← Back to Colors Strike</a>
 
         <h1>Updates</h1>
-        <p class="page-subtitle">What's new, what's fixed, and what's coming next.</p>
+        <p class="page-subtitle">What's new and what's coming next.</p>
 
         <!-- COMING SOON -->
         <div class="update-section">
             <h2><span class="badge badge-coming">Coming Soon</span></h2>
-            <ul class="update-list">
-                <li class="update-item">
-                    <h3>🌌 New Worlds</h3>
-                    <p>More sky realms to explore with new monsters and challenges.</p>
-                </li>
-                <li class="update-item">
-                    <h3>🎮 More Mini Games</h3>
-                    <p>New ways to earn gems and test your skills.</p>
-                </li>
-            </ul>
+            <div class="update-item">
+                <h3>🚀 Launching on the App Store</h3>
+                <p>Colors Strike is almost ready for its public release. Stay tuned!</p>
+            </div>
         </div>
 
-        <!-- RECENT UPDATES -->
+        <!-- LATEST -->
         <div class="update-section">
-            <h2><span class="badge badge-new">Latest</span></h2>
-            <div class="empty-state">
-                <div class="emoji">🚀</div>
-                <p>First version launching soon — stay tuned!</p>
+            <h2><span class="badge badge-latest">Latest</span></h2>
+            <p class="version-tag">v0.3.4 — TestFlight</p>
+
+            <div class="update-item">
+                <h3>🎛️ New Battle Tabs</h3>
+                <p>Four tabs on the battle screen — Upgrades, Boosts, Shop, and Inventory — everything in one place.</p>
+            </div>
+            <div class="update-item">
+                <h3>💎 Crystals & Inventory</h3>
+                <p>New Crystal currency in the Shop. Buy special boost items and store them in your Inventory for later use.</p>
+            </div>
+            <div class="update-item">
+                <h3>🌈 Chromatic Chaos</h3>
+                <p>Random battle event — swipe through colored objects as fast as you can to earn bonus rewards.</p>
+            </div>
+            <div class="update-item">
+                <h3>👹 Monster Scaling</h3>
+                <p>Monsters grow stronger the longer you stay in a world. Push further for a bigger challenge.</p>
+            </div>
+            <div class="update-item">
+                <h3>🎰 Redesigned Daily Rewards & Spin Wheel</h3>
+                <p>Now featuring crystals and special items alongside gems.</p>
+            </div>
+            <div class="update-item">
+                <h3>💤 Offline Earnings Revamp</h3>
+                <p>Claim what you earned while away, or watch an ad to boost it.</p>
+            </div>
+            <div class="update-item">
+                <h3>👑 Monthly VIP</h3>
+                <p>New subscription — removes all ads and gives extra rewards.</p>
             </div>
         </div>
 
