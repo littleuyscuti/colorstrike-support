@@ -90,10 +90,15 @@
         /* CONTACT */
         .contact { padding: 100px 24px; background: radial-gradient(ellipse at 50% 0%, rgba(107,181,255,0.06) 0%, transparent 50%); }
         .contact-card { max-width: 520px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; }
+
+        .type-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
+        .type-chip { padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-deep); color: var(--text-dim); font-size: 14px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
+        .type-chip:hover { border-color: var(--cyan); color: var(--text); }
+        .type-chip.active { border-color: var(--cyan); background: rgba(107,181,255,0.15); color: var(--cyan); }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; font-size: 14px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
-        .form-group select, .form-group textarea, .form-group input[type="email"] { width: 100%; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-size: 16px; font-family: inherit; outline: none; transition: border-color 0.3s; }
-        .form-group select:focus, .form-group textarea:focus, .form-group input:focus { border-color: var(--cyan); }
+        .form-group textarea, .form-group input[type="email"] { width: 100%; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-size: 16px; font-family: inherit; outline: none; transition: border-color 0.3s; }
+        .form-group textarea:focus, .form-group input:focus { border-color: var(--cyan); }
         .form-group textarea { min-height: 120px; resize: vertical; }
         .image-upload { border: 2px dashed var(--border); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: border-color 0.3s, background 0.3s; }
         .image-upload:hover { border-color: var(--cyan); background: rgba(107,181,255,0.05); }
@@ -190,13 +195,14 @@
         <div class="contact-card">
             <div id="form-view">
                 <div class="form-group">
-                    <label for="type">What's this about?</label>
-                    <select id="type">
-                        <option value="bug">🐛 Bug Report</option>
-                        <option value="feedback">💡 Suggestion</option>
-                        <option value="question">❓ Question</option>
-                        <option value="other">📝 Other</option>
-                    </select>
+                    <label>What's this about?</label>
+                    <div class="type-chips">
+                        <button type="button" class="type-chip active" data-value="bug" onclick="selectType(this)">🐛 Bug</button>
+                        <button type="button" class="type-chip" data-value="feedback" onclick="selectType(this)">💡 Suggestion</button>
+                        <button type="button" class="type-chip" data-value="question" onclick="selectType(this)">❓ Question</button>
+                        <button type="button" class="type-chip" data-value="other" onclick="selectType(this)">📝 Other</button>
+                    </div>
+                    <input type="hidden" id="type" value="bug">
                 </div>
                 <div class="form-group">
                     <label for="message">Tell us more</label>
@@ -238,6 +244,11 @@
 
     <script>
         let imageBase64 = null;
+        function selectType(el) {
+            document.querySelectorAll('.type-chip').forEach(c => c.classList.remove('active'));
+            el.classList.add('active');
+            document.getElementById('type').value = el.dataset.value;
+        }
         function handleImage(input) {
             const file = input.files[0];
             if (!file) return;
