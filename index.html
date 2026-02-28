@@ -87,6 +87,21 @@
         @keyframes swordFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
         .swords-tagline { margin-top: 40px; font-size: 18px; color: var(--text-dim); font-style: italic; }
 
+
+        /* MONSTERS */
+        .monsters { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+        .world-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; }
+        .world-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 24px; transition: transform 0.3s, border-color 0.3s; }
+        .world-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+        .world-header { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+        .world-header h3 { font-size: 18px; font-weight: 800; }
+        .world-tag { font-size: 12px; padding: 3px 10px; border-radius: 6px; font-weight: 700; }
+        .tag-sky1 { background: rgba(255,107,107,0.15); color: #ff8888; }
+        .tag-sky2 { background: rgba(107,181,255,0.15); color: var(--cyan); }
+        .world-card p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+        .monster-row { display: flex; gap: 12px; margin-top: 16px; align-items: center; }
+        .monster-thumb { width: 48px; height: 48px; object-fit: contain; filter: drop-shadow(0 0 6px rgba(107,181,255,0.3)); }
+        .monster-label { font-size: 12px; color: var(--text-dim); }
         /* CONTACT */
         .contact { padding: 100px 24px; background: radial-gradient(ellipse at 50% 0%, rgba(107,181,255,0.06) 0%, transparent 50%); }
         .contact-card { max-width: 520px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; }
@@ -131,10 +146,7 @@
             <span>Colors Strike</span>
         </a>
         <ul class="nav-links">
-            <li><a href="#features">Features</a></li>
-            <li><a href="#screenshots">Screenshots</a></li>
-            <li><a href="#contact">Contact</a>
-            <a href="/updates.html">Updates</a></li>
+            <li><a href="#contact">Contact</a></li>
             <li><a href="/updates.html">Updates</a></li>
         </ul>
     </nav>
@@ -190,6 +202,40 @@
         </div>
     </section>
 
+
+    <!-- MONSTERS -->
+    <section class="monsters" id="monsters">
+        <h2 class="section-title">Meet the Monsters</h2>
+        <p class="section-subtitle">Each world brings new creatures to slash</p>
+        <div class="world-grid">
+            <div class="world-card">
+                <div class="world-header">
+                    <h3>🌅 Worlds 1–4</h3>
+                    <span class="world-tag tag-sky1">Sky 1 — Warm Palette</span>
+                </div>
+                <p>Blue skies, warm colors. Slash through Scarlet, Amber, Coral, and Rose monsters. Watch out for the Garnet boss.</p>
+                <div class="monster-row">
+                    <img class="monster-thumb" src="/images/assets/monster-5.png" alt="Monster" loading="lazy">
+                    <img class="monster-thumb" src="/images/assets/monster-4.png" alt="Monster" loading="lazy">
+                    <img class="monster-thumb" src="/images/assets/monster-6.png" alt="Monster" loading="lazy">
+                    <span class="monster-label">Common → Legendary</span>
+                </div>
+            </div>
+            <div class="world-card">
+                <div class="world-header">
+                    <h3>⚡ Worlds 5–6</h3>
+                    <span class="world-tag tag-sky2">Sky 2 — Electric Palette</span>
+                </div>
+                <p>Pale cyan skies, electric vibes. Face Cobalt, Volt, and Plasma monsters. The Abyss boss awaits the brave.</p>
+                <div class="monster-row">
+                    <img class="monster-thumb" src="/images/assets/monster-7.png" alt="Monster" loading="lazy">
+                    <img class="monster-thumb" src="/images/assets/monster-8.png" alt="Monster" loading="lazy">
+                    <img class="monster-thumb" src="/images/assets/monster-bat.png" alt="Monster" loading="lazy">
+                    <span class="monster-label">Mythic → Divine</span>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <section class="contact" id="contact">
         <h2 class="section-title">Get In Touch</h2>
