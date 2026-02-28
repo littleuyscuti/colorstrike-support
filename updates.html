@@ -9,73 +9,127 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root { --bg-deep: #06061a; --bg-card: #12123a; --border: #1e1e5a; --cyan: #6bb5ff; --purple: #d66bff; --text: #e8e8ff; --text-dim: #8888bb; --green: #6bff9d; --gold: #ffd93d; }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text); line-height: 1.7; }
-        .container { max-width: 700px; margin: 0 auto; padding: 60px 24px 80px; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--cyan); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 40px; transition: opacity 0.2s; }
-        .back-link:hover { opacity: 0.8; }
-        h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .page-subtitle { color: var(--text-dim); font-size: 16px; margin-bottom: 48px; }
-        .update-section { margin-bottom: 48px; }
-        .update-section h2 { font-size: 20px; font-weight: 800; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
-        .badge { display: inline-block; padding: 4px 12px; border-radius: 8px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
-        .badge-coming { background: rgba(107,181,255,0.15); color: var(--cyan); }
-        .badge-latest { background: rgba(107,255,157,0.15); color: var(--green); }
-        .update-item { background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px; padding: 16px 20px; margin-bottom: 12px; }
-        .update-item h3 { font-size: 15px; font-weight: 700; margin-bottom: 4px; }
-        .update-item p { color: var(--text-dim); font-size: 14px; }
-        .version-tag { color: var(--text-dim); font-size: 13px; margin-bottom: 16px; opacity: 0.7; }
-        footer { text-align: center; color: var(--text-dim); font-size: 13px; opacity: 0.6; margin-top: 60px; border-top: 1px solid var(--border); padding-top: 24px; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg-deep); color: var(--text); }
+        .container { max-width: 640px; margin: 0 auto; padding: 60px 24px 80px; }
+        .back-link { display: inline-flex; align-items: center; gap: 6px; color: var(--cyan); text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 48px; transition: opacity 0.2s; }
+        .back-link:hover { opacity: 0.7; }
+
+        .page-header { margin-bottom: 56px; }
+        .page-header h1 { font-size: 40px; font-weight: 900; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 6px; }
+        .page-header p { color: var(--text-dim); font-size: 15px; }
+
+        /* Timeline */
+        .timeline { position: relative; padding-left: 28px; }
+        .timeline::before { content: ''; position: absolute; left: 6px; top: 8px; bottom: 0; width: 2px; background: var(--border); }
+
+        .timeline-entry { position: relative; margin-bottom: 40px; }
+        .timeline-dot { position: absolute; left: -28px; top: 6px; width: 14px; height: 14px; border-radius: 50%; border: 2px solid var(--border); background: var(--bg-deep); }
+        .dot-coming { border-color: var(--cyan); background: var(--cyan); box-shadow: 0 0 12px rgba(107,181,255,0.5); }
+        .dot-latest { border-color: var(--green); background: var(--green); box-shadow: 0 0 12px rgba(107,255,157,0.4); }
+
+        .entry-badge { display: inline-block; font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; padding: 3px 10px; border-radius: 6px; margin-bottom: 10px; }
+        .badge-coming { background: rgba(107,181,255,0.12); color: var(--cyan); }
+        .badge-latest { background: rgba(107,255,157,0.12); color: var(--green); }
+
+        .entry-title { font-size: 20px; font-weight: 800; margin-bottom: 16px; }
+        .entry-version { color: var(--text-dim); font-size: 13px; margin-bottom: 16px; opacity: 0.6; }
+
+        .feature-list { list-style: none; }
+        .feature-item { display: flex; gap: 12px; align-items: flex-start; padding: 12px 16px; background: var(--bg-card); border: 1px solid var(--border); border-radius: 12px; margin-bottom: 8px; transition: border-color 0.2s; }
+        .feature-item:hover { border-color: rgba(107,181,255,0.3); }
+        .feature-icon { font-size: 20px; flex-shrink: 0; line-height: 1.4; }
+        .feature-text h4 { font-size: 14px; font-weight: 700; margin-bottom: 2px; }
+        .feature-text p { font-size: 13px; color: var(--text-dim); line-height: 1.5; }
+
+        footer { text-align: center; color: var(--text-dim); font-size: 13px; opacity: 0.5; margin-top: 60px; padding-top: 24px; border-top: 1px solid var(--border); }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="/" class="back-link">← Back to Colors Strike</a>
+        <a href="/" class="back-link">← Colors Strike</a>
 
-        <h1>Updates</h1>
-        <p class="page-subtitle">What's new and what's coming next.</p>
-
-        <!-- COMING SOON -->
-        <div class="update-section">
-            <h2><span class="badge badge-coming">Coming Soon</span></h2>
-            <div class="update-item">
-                <h3>🚀 Launching on the App Store</h3>
-                <p>Colors Strike is almost ready for its public release. Stay tuned!</p>
-            </div>
+        <div class="page-header">
+            <h1>Updates</h1>
+            <p>What's new and what's next.</p>
         </div>
 
-        <!-- LATEST -->
-        <div class="update-section">
-            <h2><span class="badge badge-latest">Latest</span></h2>
-            <p class="version-tag">v0.3.4 — TestFlight</p>
+        <div class="timeline">
 
-            <div class="update-item">
-                <h3>🎛️ New Battle Tabs</h3>
-                <p>Four tabs on the battle screen — Upgrades, Boosts, Shop, and Inventory — everything in one place.</p>
+            <!-- COMING SOON -->
+            <div class="timeline-entry">
+                <div class="timeline-dot dot-coming"></div>
+                <span class="entry-badge badge-coming">Coming Soon</span>
+                <h3 class="entry-title">App Store Launch</h3>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-icon">🚀</span>
+                        <div class="feature-text">
+                            <h4>Public Release</h4>
+                            <p>Colors Strike is almost ready for the App Store. Stay tuned for the official launch.</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="update-item">
-                <h3>💎 Crystals & Inventory</h3>
-                <p>New Crystal currency in the Shop. Buy special boost items and store them in your Inventory for later use.</p>
+
+            <!-- v0.3.4 -->
+            <div class="timeline-entry">
+                <div class="timeline-dot dot-latest"></div>
+                <span class="entry-badge badge-latest">Latest</span>
+                <h3 class="entry-title">What's New</h3>
+                <p class="entry-version">v0.3.4 — TestFlight</p>
+                <ul class="feature-list">
+                    <li class="feature-item">
+                        <span class="feature-icon">🎛️</span>
+                        <div class="feature-text">
+                            <h4>Battle Screen Tabs</h4>
+                            <p>Upgrades, Boosts, Shop, and Inventory — all in one place.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">💎</span>
+                        <div class="feature-text">
+                            <h4>Crystals & Inventory</h4>
+                            <p>New currency to buy special boost items, stored in your Inventory.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">🌈</span>
+                        <div class="feature-text">
+                            <h4>Chromatic Chaos</h4>
+                            <p>Random battle event — swipe colored objects as fast as you can.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">👹</span>
+                        <div class="feature-text">
+                            <h4>Monster Scaling</h4>
+                            <p>Monsters get tougher the longer you stay in a world.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">🎰</span>
+                        <div class="feature-text">
+                            <h4>Daily Rewards & Spin Wheel</h4>
+                            <p>Redesigned with crystals and special items.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">💤</span>
+                        <div class="feature-text">
+                            <h4>Offline Earnings</h4>
+                            <p>Claim what you earned while away, or watch an ad to boost it.</p>
+                        </div>
+                    </li>
+                    <li class="feature-item">
+                        <span class="feature-icon">👑</span>
+                        <div class="feature-text">
+                            <h4>Monthly VIP</h4>
+                            <p>Remove all ads and get extra rewards with a monthly subscription.</p>
+                        </div>
+                    </li>
+                </ul>
             </div>
-            <div class="update-item">
-                <h3>🌈 Chromatic Chaos</h3>
-                <p>Random battle event — swipe through colored objects as fast as you can to earn bonus rewards.</p>
-            </div>
-            <div class="update-item">
-                <h3>👹 Monster Scaling</h3>
-                <p>Monsters grow stronger the longer you stay in a world. Push further for a bigger challenge.</p>
-            </div>
-            <div class="update-item">
-                <h3>🎰 Redesigned Daily Rewards & Spin Wheel</h3>
-                <p>Now featuring crystals and special items alongside gems.</p>
-            </div>
-            <div class="update-item">
-                <h3>💤 Offline Earnings Revamp</h3>
-                <p>Claim what you earned while away, or watch an ad to boost it.</p>
-            </div>
-            <div class="update-item">
-                <h3>👑 Monthly VIP</h3>
-                <p>New subscription — removes all ads and gives extra rewards.</p>
-            </div>
+
         </div>
 
         <footer>© 2026 Colors Strike</footer>
