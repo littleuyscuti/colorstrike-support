@@ -1,5 +1,10 @@
 {
     "rewrites": [
         { "source": "/api/feedback", "destination": "/api/feedback" }
-    ]
+    ],
+    "functions": {
+        "api/feedback.js": {
+            "maxDuration": 10
+        }
+    }
 }

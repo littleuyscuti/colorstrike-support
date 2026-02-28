@@ -3,174 +3,297 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Color Strike - Support</title>
+    <title>Colors Strike — Slash Monsters. Collect Swords. Conquer Worlds.</title>
+    <meta name="description" content="Colors Strike is an action-packed casual iOS game. Slash colorful monsters, collect powerful swords, and conquer 6 unique worlds.">
+    <link rel="icon" href="/images/assets/app-icon.jpeg">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
-            background: #0a0a0a;
-            color: #fff;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding: 40px 20px;
+        :root {
+            --bg-deep: #06061a; --bg-dark: #0a0a2e; --bg-card: #12123a; --border: #1e1e5a;
+            --cyan: #6bb5ff; --pink: #ff6b9d; --purple: #d66bff; --gold: #ffd93d; --green: #6bff9d;
+            --text: #e8e8ff; --text-dim: #8888bb;
         }
-        .container { max-width: 500px; width: 100%; }
-        h1 {
-            font-size: 28px;
-            font-weight: 800;
-            text-align: center;
-            margin-bottom: 8px;
-            background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bff6b, #6bb5ff, #d66bff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-        }
-        .subtitle {
-            text-align: center;
-            color: #888;
-            font-size: 14px;
-            margin-bottom: 32px;
-        }
-        .card {
-            background: #1a1a1a;
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 16px;
-            border: 1px solid #2a2a2a;
-        }
-        label {
-            display: block;
-            font-size: 14px;
-            font-weight: 600;
-            color: #ccc;
-            margin-bottom: 8px;
-        }
-        select, textarea, input[type="email"] {
-            width: 100%;
-            background: #111;
-            border: 1px solid #333;
-            border-radius: 10px;
-            padding: 12px;
-            color: #fff;
-            font-size: 16px;
-            font-family: inherit;
-            outline: none;
-            transition: border-color 0.2s;
-        }
-        select:focus, textarea:focus, input:focus {
-            border-color: #6bb5ff;
-        }
-        textarea { min-height: 120px; resize: vertical; }
-        select { margin-bottom: 16px; }
-        .email-note {
-            font-size: 12px;
-            color: #666;
-            margin-top: 4px;
-        }
-        button {
-            width: 100%;
-            padding: 14px;
-            background: linear-gradient(135deg, #6b6bff, #6bb5ff);
-            border: none;
-            border-radius: 12px;
-            color: #fff;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 16px;
-            transition: opacity 0.2s;
-        }
-        button:hover { opacity: 0.9; }
-        button:disabled { opacity: 0.5; cursor: not-allowed; }
-        .success {
-            text-align: center;
-            padding: 40px 20px;
-        }
-        .success .check {
-            font-size: 48px;
-            margin-bottom: 16px;
-        }
-        .success h2 { margin-bottom: 8px; }
-        .success p { color: #888; }
-        .hidden { display: none; }
-        .footer {
-            margin-top: 40px;
-            text-align: center;
-            color: #444;
-            font-size: 12px;
-        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: var(--bg-deep); color: var(--text); overflow-x: hidden; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 16px 24px; background: rgba(6,6,26,0.85); backdrop-filter: blur(20px); border-bottom: 1px solid rgba(107,181,255,0.1); display: flex; justify-content: space-between; align-items: center; }
+        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
+        .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
+        .nav-logo span { font-weight: 800; font-size: 18px; background: linear-gradient(135deg, var(--cyan), var(--purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .nav-links { display: flex; gap: 24px; list-style: none; }
+        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.3s; }
+        .nav-links a:hover { color: var(--cyan); }
+        @media (max-width: 600px) { .nav-links { display: none; } }
+
+        /* HERO */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 120px 24px 80px; position: relative; overflow: hidden; background: radial-gradient(ellipse at 50% 30%, rgba(107,181,255,0.08) 0%, transparent 60%), radial-gradient(ellipse at 30% 70%, rgba(214,107,255,0.06) 0%, transparent 50%), var(--bg-deep); }
+        .hero-glow { position: absolute; width: 400px; height: 400px; border-radius: 50%; filter: blur(120px); opacity: 0.3; pointer-events: none; }
+        .hero-glow-1 { background: var(--purple); top: 10%; left: 20%; }
+        .hero-glow-2 { background: var(--cyan); bottom: 20%; right: 15%; }
+        .hero-icon { width: 140px; height: 140px; border-radius: 32px; box-shadow: 0 0 60px rgba(107,181,255,0.4), 0 0 120px rgba(214,107,255,0.2); margin-bottom: 32px; animation: float 4s ease-in-out infinite; position: relative; z-index: 2; }
+        @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        .hero h1 { font-size: clamp(40px, 8vw, 72px); font-weight: 900; line-height: 1.1; margin-bottom: 16px; background: linear-gradient(135deg, #ff6b6b, #ffd93d, #6bff6b, #6bb5ff, #d66bff); background-size: 200% 200%; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: gradientShift 5s ease infinite; position: relative; z-index: 2; }
+        @keyframes gradientShift { 0%,100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+        .hero-tagline { font-size: clamp(16px, 3vw, 22px); color: var(--text-dim); margin-bottom: 40px; font-weight: 500; position: relative; z-index: 2; }
+        .app-store-btn { display: inline-flex; align-items: center; gap: 10px; padding: 14px 32px; background: linear-gradient(135deg, var(--cyan), var(--purple)); border-radius: 16px; color: white; text-decoration: none; font-weight: 700; font-size: 18px; transition: transform 0.2s, box-shadow 0.2s; position: relative; z-index: 2; }
+        .app-store-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(107,181,255,0.4); }
+        .app-store-btn svg { width: 24px; height: 24px; }
+        .floating-asset { position: absolute; pointer-events: none; z-index: 1; opacity: 0.6; }
+        .float-sword-1 { width: 80px; top: 20%; left: 8%; animation: floatSlow 6s ease-in-out infinite; transform: rotate(-20deg); }
+        .float-sword-2 { width: 70px; top: 30%; right: 10%; animation: floatSlow 7s ease-in-out infinite 1s; transform: rotate(15deg); }
+        .float-monster-1 { width: 90px; bottom: 25%; left: 12%; animation: floatSlow 5s ease-in-out infinite 0.5s; }
+        .float-monster-2 { width: 75px; bottom: 20%; right: 8%; animation: floatSlow 8s ease-in-out infinite 2s; }
+        @keyframes floatSlow { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-20px); } }
+        @media (max-width: 768px) { .floating-asset { opacity: 0.3; } .float-sword-1,.float-monster-1 { left: 2%; } .float-sword-2,.float-monster-2 { right: 2%; } }
+
+        /* FEATURES */
+        .features { padding: 100px 24px; max-width: 1100px; margin: 0 auto; }
+        .section-title { text-align: center; font-size: clamp(28px, 5vw, 42px); font-weight: 900; margin-bottom: 12px; }
+        .section-subtitle { text-align: center; color: var(--text-dim); font-size: 16px; margin-bottom: 60px; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; }
+        .feature-card { background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px; padding: 32px 24px; text-align: center; transition: transform 0.3s, border-color 0.3s; }
+        .feature-card:hover { transform: translateY(-4px); border-color: var(--cyan); }
+        .feature-emoji { font-size: 48px; margin-bottom: 16px; display: block; }
+        .feature-card h3 { font-size: 20px; font-weight: 800; margin-bottom: 8px; }
+        .feature-card p { color: var(--text-dim); font-size: 14px; line-height: 1.6; }
+
+        /* SCREENSHOTS */
+        .screenshots { padding: 100px 0; background: radial-gradient(ellipse at 50% 50%, rgba(214,107,255,0.05) 0%, transparent 60%); }
+        .screenshots .section-title, .screenshots .section-subtitle { padding: 0 24px; }
+        .screenshot-scroll { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 max(24px, calc((100vw - 1100px) / 2)); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+        .screenshot-scroll::-webkit-scrollbar { display: none; }
+        .screenshot-item { flex-shrink: 0; scroll-snap-align: center; width: 220px; }
+        .phone-frame { background: #1a1a2e; border-radius: 28px; padding: 8px; border: 2px solid #2a2a5a; box-shadow: 0 20px 60px rgba(0,0,0,0.5); transition: transform 0.3s; }
+        .phone-frame:hover { transform: scale(1.03); }
+        .phone-frame img { width: 100%; border-radius: 20px; display: block; }
+        .screenshot-label { text-align: center; margin-top: 12px; font-size: 13px; color: var(--text-dim); font-weight: 600; }
+
+        /* SWORDS */
+        .swords { padding: 100px 24px; text-align: center; max-width: 1100px; margin: 0 auto; }
+        .swords-showcase { display: flex; flex-wrap: wrap; justify-content: center; gap: 32px; margin-top: 48px; }
+        .sword-item { width: 100px; height: 100px; display: flex; align-items: center; justify-content: center; background: radial-gradient(circle, rgba(107,181,255,0.1) 0%, transparent 70%); border-radius: 20px; transition: transform 0.3s; }
+        .sword-item:hover { transform: scale(1.15) rotate(5deg); }
+        .sword-item img { max-width: 80px; max-height: 80px; filter: drop-shadow(0 0 12px rgba(107,181,255,0.5)); }
+        .sword-item:nth-child(1) { animation: swordFloat 4s ease-in-out infinite; }
+        .sword-item:nth-child(2) { animation: swordFloat 5s ease-in-out infinite 0.5s; }
+        .sword-item:nth-child(3) { animation: swordFloat 4.5s ease-in-out infinite 1s; }
+        .sword-item:nth-child(4) { animation: swordFloat 5.5s ease-in-out infinite 1.5s; }
+        .sword-item:nth-child(5) { animation: swordFloat 4s ease-in-out infinite 2s; }
+        .sword-item:nth-child(6) { animation: swordFloat 6s ease-in-out infinite 0.8s; }
+        .sword-item:nth-child(7) { animation: swordFloat 4.8s ease-in-out infinite 1.2s; }
+        .sword-item:nth-child(8) { animation: swordFloat 5.2s ease-in-out infinite 1.8s; }
+        @keyframes swordFloat { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+        .swords-tagline { margin-top: 40px; font-size: 18px; color: var(--text-dim); font-style: italic; }
+
+        /* CONTACT */
+        .contact { padding: 100px 24px; background: radial-gradient(ellipse at 50% 0%, rgba(107,181,255,0.06) 0%, transparent 50%); }
+        .contact-card { max-width: 520px; margin: 0 auto; background: var(--bg-card); border: 1px solid var(--border); border-radius: 24px; padding: 32px; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 14px; font-weight: 600; color: var(--text-dim); margin-bottom: 8px; }
+        .form-group select, .form-group textarea, .form-group input[type="email"] { width: 100%; background: var(--bg-deep); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-size: 16px; font-family: inherit; outline: none; transition: border-color 0.3s; }
+        .form-group select:focus, .form-group textarea:focus, .form-group input:focus { border-color: var(--cyan); }
+        .form-group textarea { min-height: 120px; resize: vertical; }
+        .image-upload { border: 2px dashed var(--border); border-radius: 12px; padding: 20px; text-align: center; cursor: pointer; transition: border-color 0.3s, background 0.3s; }
+        .image-upload:hover { border-color: var(--cyan); background: rgba(107,181,255,0.05); }
+        .image-upload input { display: none; }
+        .image-upload-text { color: var(--text-dim); font-size: 14px; }
+        .image-upload-text span { color: var(--cyan); font-weight: 600; }
+        .image-preview { max-width: 100%; max-height: 150px; margin-top: 12px; border-radius: 8px; display: none; }
+        .email-note { font-size: 12px; color: var(--text-dim); margin-top: 4px; opacity: 0.7; }
+        .submit-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--cyan), var(--purple)); border: none; border-radius: 14px; color: white; font-size: 16px; font-weight: 700; font-family: inherit; cursor: pointer; transition: opacity 0.2s, transform 0.2s; margin-top: 8px; }
+        .submit-btn:hover { opacity: 0.9; transform: translateY(-1px); }
+        .submit-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+        .success-view { text-align: center; padding: 40px 20px; display: none; }
+        .success-view .check { font-size: 56px; margin-bottom: 16px; }
+        .success-view h3 { font-size: 24px; margin-bottom: 8px; }
+        .success-view p { color: var(--text-dim); }
+
+        /* FOOTER */
+        footer { padding: 48px 24px; text-align: center; border-top: 1px solid var(--border); }
+        .footer-links { display: flex; justify-content: center; gap: 24px; margin-bottom: 20px; flex-wrap: wrap; }
+        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.3s; }
+        .footer-links a:hover { color: var(--cyan); }
+        .footer-copy { color: var(--text-dim); font-size: 13px; opacity: 0.6; }
+        .footer-made { color: var(--text-dim); font-size: 12px; margin-top: 8px; opacity: 0.4; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>⚔️ Color Strike</h1>
-        <p class="subtitle">Support & Feedback</p>
+    <nav>
+        <a href="#" class="nav-logo">
+            <img src="/images/assets/app-icon.jpeg" alt="Colors Strike">
+            <span>Colors Strike</span>
+        </a>
+        <ul class="nav-links">
+            <li><a href="#features">Features</a></li>
+            <li><a href="#screenshots">Screenshots</a></li>
+            <li><a href="#swords">Swords</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
 
-        <div id="form-view">
-            <div class="card">
-                <label for="type">What's this about?</label>
-                <select id="type">
-                    <option value="bug">🐛 Bug Report</option>
-                    <option value="feedback">💡 Feedback / Suggestion</option>
-                    <option value="question">❓ Question</option>
-                    <option value="other">📝 Other</option>
-                </select>
+    <section class="hero">
+        <div class="hero-glow hero-glow-1"></div>
+        <div class="hero-glow hero-glow-2"></div>
+        <img class="floating-asset float-sword-1" src="/images/assets/sword-crystal.png" alt="" loading="lazy">
+        <img class="floating-asset float-sword-2" src="/images/assets/sword-fire.png" alt="" loading="lazy">
+        <img class="floating-asset float-monster-1" src="/images/assets/monster-5.png" alt="" loading="lazy">
+        <img class="floating-asset float-monster-2" src="/images/assets/monster-bat.png" alt="" loading="lazy">
+        <img class="hero-icon" src="/images/assets/app-icon.jpeg" alt="Colors Strike App Icon">
+        <h1>Colors Strike</h1>
+        <p class="hero-tagline">Slash Monsters. Collect Swords. Conquer Worlds.</p>
+        <a href="https://apps.apple.com/app/id6751905171" class="app-store-btn">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Download on the App Store
+        </a>
+    </section>
 
-                <label for="message">Tell us more</label>
-                <textarea id="message" placeholder="Describe what happened, what you'd like to see, or anything else..."></textarea>
-
-                <label for="email" style="margin-top: 16px;">Email (optional)</label>
-                <input type="email" id="email" placeholder="your@email.com">
-                <p class="email-note">Only if you'd like us to follow up with you</p>
-
-                <button id="submit-btn" onclick="submitFeedback()">Send Feedback</button>
+    <section class="features" id="features">
+        <h2 class="section-title">What Makes It Epic</h2>
+        <p class="section-subtitle">Simple to play, impossible to put down</p>
+        <div class="features-grid">
+            <div class="feature-card">
+                <span class="feature-emoji">⚔️</span>
+                <h3>Slash & Earn</h3>
+                <p>Slash colorful monsters with powerful swords and earn gems to upgrade your arsenal. Every hit counts.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-emoji">🗡️</span>
+                <h3>Collect Swords</h3>
+                <p>10+ unique swords — from Crystal to Lightning. Each one with special powers and stunning designs.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-emoji">🌍</span>
+                <h3>6 Worlds</h3>
+                <p>Explore different sky realms, each with unique monsters, backgrounds, and challenges waiting for you.</p>
+            </div>
+            <div class="feature-card">
+                <span class="feature-emoji">🎰</span>
+                <h3>Spin & Win</h3>
+                <p>Try your luck on the daily wheel for special rewards, bonus gems, and rare power-ups.</p>
             </div>
         </div>
+    </section>
 
-        <div id="success-view" class="hidden">
-            <div class="card success">
+    <section class="screenshots" id="screenshots">
+        <h2 class="section-title">See It In Action</h2>
+        <p class="section-subtitle">Swipe through gameplay moments</p>
+        <div class="screenshot-scroll">
+            <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/1_slash_monsters.png" alt="Slash Monsters" loading="lazy"></div><p class="screenshot-label">Slash Monsters</p></div>
+            <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/2_upgrade_power.png" alt="Upgrade Power" loading="lazy"></div><p class="screenshot-label">Upgrade Power</p></div>
+            <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/3_worlds_conquer.png" alt="Conquer Worlds" loading="lazy"></div><p class="screenshot-label">Conquer Worlds</p></div>
+            <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/4_spin_wheel.png" alt="Spin & Win" loading="lazy"></div><p class="screenshot-label">Spin & Win</p></div>
+            <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/5_mini_games.png" alt="Mini Games" loading="lazy"></div><p class="screenshot-label">Mini Games</p></div>
+        </div>
+    </section>
+
+    <section class="swords" id="swords">
+        <h2 class="section-title">Your Arsenal Awaits</h2>
+        <p class="section-subtitle">Collect them all. Master their power.</p>
+        <div class="swords-showcase">
+            <div class="sword-item"><img src="/images/assets/sword-crystal.png" alt="Crystal Sword" loading="lazy"></div>
+            <div class="sword-item"><img src="/images/assets/sword-steel.png" alt="Steel Sword" loading="lazy"></div>
+            <div class="sword-item"><img src="/images/assets/sword-fire.png" alt="Fire Sword" loading="lazy"></div>
+            <div class="sword-item"><img src="/images/assets/sword-lightning.png" alt="Lightning Sword" loading="lazy"></div>
+            <div class="sword-item"><img src="/images/assets/sword-frozen.png" alt="Frozen Sword" loading="lazy"></div>
+            <div class="sword-item"><img src="/images/assets/sword-dark.png" alt="Dark Sword" loading="lazy"></div>
+            <div class="sword-item"><img src="/images/assets/sword-gem.png" alt="Gem Sword" loading="lazy"></div>
+            <div class="sword-item"><img src="/images/assets/sword-classic.png" alt="Classic Sword" loading="lazy"></div>
+        </div>
+        <p class="swords-tagline">"From Crystal to Lightning — every sword tells a story"</p>
+    </section>
+
+    <section class="contact" id="contact">
+        <h2 class="section-title">Get In Touch</h2>
+        <p class="section-subtitle">Bug report, suggestion, or just want to say hi? We'd love to hear from you.</p>
+        <div class="contact-card">
+            <div id="form-view">
+                <div class="form-group">
+                    <label for="type">What's this about?</label>
+                    <select id="type">
+                        <option value="bug">🐛 Bug Report</option>
+                        <option value="feedback">💡 Suggestion</option>
+                        <option value="question">❓ Question</option>
+                        <option value="other">📝 Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="message">Tell us more</label>
+                    <textarea id="message" placeholder="Describe what happened, what you'd like to see, or anything else..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Screenshot (optional)</label>
+                    <div class="image-upload" onclick="document.getElementById('imageInput').click()">
+                        <input type="file" id="imageInput" accept="image/*" onchange="handleImage(this)">
+                        <p class="image-upload-text">📸 <span>Click to upload</span> or drag an image here</p>
+                        <img id="imagePreview" class="image-preview" alt="Preview">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email (optional)</label>
+                    <input type="email" id="email" placeholder="your@email.com">
+                    <p class="email-note">Only if you'd like us to follow up</p>
+                </div>
+                <button class="submit-btn" id="submit-btn" onclick="submitFeedback()">Send Feedback</button>
+            </div>
+            <div id="success-view" class="success-view">
                 <div class="check">✅</div>
-                <h2>Thanks!</h2>
-                <p>Your feedback has been received. We appreciate you helping make Color Strike better.</p>
+                <h3>Thanks!</h3>
+                <p>Your feedback has been received. We appreciate you helping make Colors Strike better.</p>
             </div>
         </div>
+    </section>
 
-        <p class="footer">© 2026 Color Strike</p>
-    </div>
+    <footer>
+        <div class="footer-links">
+            <a href="https://apps.apple.com/app/id6751905171">App Store</a>
+            <a href="#features">Features</a>
+            <a href="#contact">Contact</a>
+            <a href="/privacy.html">Privacy Policy</a>
+        </div>
+        <p class="footer-copy">© 2026 Colors Strike. All rights reserved.</p>
+        <p class="footer-made">Made with ⚔️ in Hong Kong</p>
+    </footer>
 
     <script>
+        let imageBase64 = null;
+        function handleImage(input) {
+            const file = input.files[0];
+            if (!file) return;
+            if (file.size > 5 * 1024 * 1024) { alert('Image must be under 5MB'); return; }
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imageBase64 = e.target.result;
+                const preview = document.getElementById('imagePreview');
+                preview.src = imageBase64;
+                preview.style.display = 'block';
+                document.querySelector('.image-upload-text').textContent = '✅ Image attached — click to change';
+            };
+            reader.readAsDataURL(file);
+        }
         async function submitFeedback() {
             const btn = document.getElementById('submit-btn');
             const type = document.getElementById('type').value;
             const message = document.getElementById('message').value.trim();
             const email = document.getElementById('email').value.trim();
-
-            if (!message) {
-                alert('Please enter a message');
-                return;
-            }
-
-            btn.disabled = true;
-            btn.textContent = 'Sending...';
-
+            if (!message) { alert('Please enter a message'); return; }
+            btn.disabled = true; btn.textContent = 'Sending...';
             try {
+                const body = { type, message, email };
+                if (imageBase64) body.image = imageBase64;
                 const resp = await fetch('/api/feedback', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ type, message, email })
+                    body: JSON.stringify(body)
                 });
-
                 if (resp.ok) {
-                    document.getElementById('form-view').classList.add('hidden');
-                    document.getElementById('success-view').classList.remove('hidden');
-                } else {
-                    throw new Error('Failed');
-                }
+                    document.getElementById('form-view').style.display = 'none';
+                    document.getElementById('success-view').style.display = 'block';
+                } else { throw new Error('Failed'); }
             } catch (e) {
                 alert('Something went wrong. Please try again.');
-                btn.disabled = false;
-                btn.textContent = 'Send Feedback';
+                btn.disabled = false; btn.textContent = 'Send Feedback';
             }
         }
     </script>
