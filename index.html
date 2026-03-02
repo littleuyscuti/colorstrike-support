@@ -6,62 +6,8 @@
     <title>Colors Strike — Slash Monsters. Power Up. Conquer Worlds.</title>
     <meta name="description" content="Colors Strike is an action-packed casual iOS game. Slash colorful monsters, collect powerful swords, and conquer 6 unique worlds.">
     <link rel="icon" href="/images/assets/app-icon.jpeg">
+    <link rel="stylesheet" href="/shared.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        :root {
-            --bg-deep: #060d18; --bg-dark: #0a1628; --bg-card: #0f1d32; --border: #1a2d4a;
-            --cyan: #6bb5ff; --teal: #00d4c8; --pink: #ff6b9d; --gold: #ffd93d; --green: #6bff9d;
-            --text: #e4eeff; --text-dim: #7a9bbf;
-        }
-        html { scroll-behavior: auto; overscroll-behavior: none; }
-
-        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; background: radial-gradient(circle at 20% 15%, rgba(107,181,255,0.1) 0%, transparent 40%), radial-gradient(circle at 80% 30%, rgba(0,212,200,0.08) 0%, transparent 40%), radial-gradient(circle at 50% 80%, rgba(107,181,255,0.05) 0%, transparent 35%), var(--bg-deep); color: var(--text); overflow-x: hidden; -webkit-text-size-adjust: 100%; font-size: 18px; overscroll-behavior: none; }
-
-        /* STARFIELD — removed */
-
-        /* SCROLL REVEAL */
-        .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1); }
-        .reveal.visible { opacity: 1; transform: translateY(0); }
-        .reveal-delay-1 { transition-delay: 0.1s; }
-        .reveal-delay-2 { transition-delay: 0.2s; }
-        .reveal-delay-3 { transition-delay: 0.3s; }
-        .reveal-delay-4 { transition-delay: 0.4s; }
-
-        /* SECTION DIVIDER — removed */
-
-        /* NAV */
-        nav { position: sticky; top: 0; width: 100%; z-index: 100; padding: 14px 32px; background: rgba(6,13,24,0.95); border-bottom: 1px solid rgba(107,181,255,0.08); display: flex; justify-content: space-between; align-items: center; transition: background 0.3s, padding 0.3s, box-shadow 0.3s; }
-        nav.scrolled { background: rgba(6,13,24,0.98); padding: 10px 32px; box-shadow: 0 4px 30px rgba(0,0,0,0.4); }
-        .nav-logo { display: flex; align-items: center; gap: 10px; text-decoration: none; }
-        .nav-logo img { width: 36px; height: 36px; border-radius: 8px; }
-        .nav-logo span { font-weight: 800; font-size: 18px; background: linear-gradient(135deg, var(--cyan), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .nav-links { display: flex; gap: 24px; list-style: none; align-items: center; }
-        .nav-links a { color: var(--text-dim); text-decoration: none; font-size: 15px; font-weight: 600; transition: color 0.3s; position: relative; }
-        .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: linear-gradient(90deg, var(--cyan), var(--teal)); border-radius: 1px; transition: width 0.3s; }
-        .nav-links a:hover { color: var(--text); }
-        .nav-links a:hover::after { width: 100%; }
-        .nav-cta { display: inline-flex; align-items: center; gap: 6px; padding: 8px 18px; background: linear-gradient(135deg, var(--cyan), var(--teal)); border-radius: 10px; color: white !important; text-decoration: none; font-weight: 700; font-size: 14px !important; transition: transform 0.2s, box-shadow 0.2s; }
-        .nav-cta::after { display: none !important; }
-        .nav-cta:hover { transform: translateY(-1px); box-shadow: 0 4px 20px rgba(107,181,255,0.3); }
-        .nav-cta svg { width: 16px; height: 16px; }
-
-        /* HAMBURGER */
-        .hamburger { display: none; background: none; border: none; cursor: pointer; padding: 4px; z-index: 101; }
-        .hamburger span { display: block; width: 22px; height: 2px; background: var(--text); margin: 5px 0; border-radius: 2px; transition: transform 0.3s, opacity 0.3s; }
-        .hamburger.open span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
-        .hamburger.open span:nth-child(2) { opacity: 0; }
-        .hamburger.open span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
-
-        @media (max-width: 640px) {
-            .hamburger { display: block; }
-            .nav-links { position: fixed; top: 0; right: -100%; width: 260px; height: 100vh; background: rgba(6,13,24,0.98); backdrop-filter: blur(30px); -webkit-backdrop-filter: blur(30px); flex-direction: column; padding: 100px 32px 40px; gap: 28px; transition: right 0.35s cubic-bezier(0.16, 1, 0.3, 1); border-left: 1px solid var(--border); }
-            .nav-links.open { right: 0; }
-            .nav-links a { font-size: 18px; }
-            .nav-cta { font-size: 16px !important; padding: 12px 24px; justify-content: center; }
-            .app-store-btn { font-size: 15px; padding: 12px 24px; }
-        }
-
         /* HERO */
         .hero { min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 60px 24px 80px; position: relative; overflow: hidden; }
         .hero-icon { width: 180px; height: 180px; border-radius: 40px; box-shadow: 0 0 60px rgba(107,181,255,0.4), 0 0 120px rgba(0,212,200,0.2); margin-bottom: 32px; animation: float 4s ease-in-out infinite; position: relative; z-index: 2; }
@@ -104,10 +50,9 @@
         /* SCREENSHOTS */
         .screenshots { padding: 100px 0; overflow: hidden; position: relative; z-index: 1; }
         .screenshots .section-title, .screenshots .section-subtitle { padding: 0 24px; }
-        .screenshot-scroll { display: flex; gap: 24px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 0 max(24px, calc((100vw - 1100px) / 2)); -webkit-overflow-scrolling: touch; scrollbar-width: none; }
-        .screenshot-scroll::-webkit-scrollbar { display: none; }
-        .screenshot-item { flex-shrink: 0; scroll-snap-align: center; width: auto; }
-        @media (max-width: 600px) { .screenshot-scroll { flex-direction: column; overflow-x: visible; scroll-snap-type: none; align-items: center; padding: 0 24px; gap: 20px; } .screenshot-item { flex-shrink: 1; width: 70%; max-width: 280px; } }
+        .screenshot-scroll { display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; padding: 0 24px; }
+        .screenshot-item { display: flex; flex-direction: column; align-items: center; }
+        @media (max-width: 600px) { .screenshot-scroll { flex-direction: column; align-items: center; gap: 20px; } .screenshot-item { width: 70%; max-width: 280px; } .phone-frame img { height: auto; width: 100%; } }
         .phone-frame { background: none; border-radius: 20px; padding: 0; border: none; }
         .phone-frame img { height: 500px; width: auto; border-radius: 20px; display: block; }
         .screenshot-label { text-align: center; margin-top: 16px; font-size: 14px; color: var(--text-dim); font-weight: 600; }
@@ -166,7 +111,7 @@
         .contact-card { max-width: 680px; width: 100%; margin: 0 auto; background: rgba(10,22,40,0.8); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 1px solid var(--border); border-radius: 24px; padding: 40px; position: relative; overflow: hidden; }
         .contact-card::before { content: ''; position: absolute; inset: -1px; border-radius: 24px; padding: 1px; background: linear-gradient(135deg, rgba(107,181,255,0.2), rgba(0,212,200,0.2)); -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0); -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; }
 
-        .type-chips { display: flex; gap: 10px; flex-wrap: nowrap; margin-bottom: 4px; }
+        .type-chips { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 4px; }
         .type-chip { padding: 10px 16px; border-radius: 12px; border: 1px solid var(--border); background: var(--bg-deep); color: var(--text-dim); font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s; font-family: inherit; }
         .type-chip:hover { border-color: var(--cyan); color: var(--text); }
         .type-chip.active { border-color: var(--cyan); background: rgba(107,181,255,0.15); color: var(--cyan); }
@@ -175,11 +120,12 @@
         .form-group textarea, .form-group input[type="email"] { width: 100%; background: rgba(6,6,26,0.8); border: 1px solid var(--border); border-radius: 12px; padding: 12px 16px; color: var(--text); font-size: 17px; font-family: inherit; outline: none; transition: border-color 0.3s, box-shadow 0.3s; }
         .form-group textarea:focus, .form-group input:focus { border-color: var(--cyan); box-shadow: 0 0 0 3px rgba(107,181,255,0.1); }
         .form-group textarea { min-height: 120px; resize: vertical; }
-        .screenshot-box { border: 1.5px dashed rgba(107,181,255,0.25); border-radius: 14px; padding: 14px; background: var(--bg-card); cursor: pointer; transition: border-color 0.3s; }
+        .screenshot-box { border: 1.5px dashed rgba(107,181,255,0.25); border-radius: 14px; padding: 14px; background: var(--bg-card); cursor: pointer; transition: border-color 0.3s, background 0.3s; }
         .screenshot-box:hover { border-color: rgba(107,181,255,0.4); }
+        .screenshot-box.drag-over { border-color: var(--cyan); background: rgba(107,181,255,0.08); }
         .screenshot-box.at-limit { border-color: rgba(255,255,255,0.06); cursor: default; }
         .screenshot-box.at-limit:hover { border-color: rgba(255,255,255,0.06); }
-        .thumb-row { display: flex; gap: 10px; margin-bottom: 12px; flex-wrap: wrap; }
+        .thumb-row { display: flex; gap: 12px; margin-bottom: 12px; flex-wrap: wrap; justify-content: center; padding: 4px 0; }
         .thumb-row:empty { display: none; margin: 0; }
         .thumb-slot { position: relative; width: 150px; flex-shrink: 0; }
         .thumb-slot img { width: 100%; height: auto; border-radius: 10px; border: none; display: block; background: none; }
@@ -215,36 +161,8 @@
         .img-preview-overlay img { max-width: 90vw; max-height: 85vh; border-radius: 12px; object-fit: contain; transform-origin: center center; will-change: transform; }
         .img-preview-close { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.85); border: none; color: transparent; font-size: 0; cursor: pointer; padding: 0; } .img-preview-close::before, .img-preview-close::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 2px; background: #fff; border-radius: 1px; } .img-preview-close::before { transform: translate(-50%,-50%) rotate(45deg); } .img-preview-close::after { transform: translate(-50%,-50%) rotate(-45deg); }
 
-        /* FOOTER */
-        footer { padding: 60px 24px 40px; text-align: center; border-top: 1px solid var(--border); position: relative; z-index: 1; }
-        .footer-logo { display: flex; align-items: center; justify-content: center; gap: 10px; margin-bottom: 24px; }
-        .footer-logo img { width: 32px; height: 32px; border-radius: 8px; }
-        .footer-logo span { font-weight: 800; font-size: 16px; background: linear-gradient(135deg, var(--cyan), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .footer-links { display: flex; justify-content: center; gap: 32px; margin-bottom: 24px; flex-wrap: wrap; }
-        .footer-links a { color: var(--text-dim); text-decoration: none; font-size: 14px; font-weight: 600; transition: color 0.3s; }
-        .footer-links a:hover { color: var(--cyan); }
-        .footer-copy { color: var(--text-dim); font-size: 13px; opacity: 0.5; }
-        .footer-made { color: var(--text-dim); font-size: 12px; margin-top: 8px; opacity: 0.35; }
-
-        /* BACK TO TOP */
-        .back-to-top { position: fixed; bottom: 28px; right: 28px; width: 44px; height: 44px; border-radius: 14px; background: rgba(18,18,58,0.85); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); border: 1px solid rgba(107,181,255,0.2); color: var(--cyan); display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 90; opacity: 0; pointer-events: none; transform: translateY(12px); transition: opacity 0.3s, transform 0.3s, background 0.2s; }
-        .back-to-top.show { opacity: 1; pointer-events: auto; transform: translateY(0); }
-        .back-to-top:hover { background: rgba(107,181,255,0.15); }
-        .back-to-top svg { width: 20px; height: 20px; }
-
-        /* ACTIVE NAV */
-        .nav-links a.active { color: var(--text); }
-        .nav-links a.active::after { width: 100%; }
-
         /* SCREENSHOT DOTS */
-        .scroll-dots { display: flex; justify-content: center; gap: 8px; margin-top: 24px; padding: 0 24px; }
-        .scroll-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--border); border: none; cursor: pointer; padding: 0; transition: background 0.3s, transform 0.3s; }
-        .scroll-dot.active { background: var(--cyan); transform: scale(1.3); }
-        @media (max-width: 600px) { .scroll-dots { display: none; } }
 
-        /* PAGE LOAD */
-        body { animation: pageIn 0.6s ease-out; }
-        @keyframes pageIn { from { opacity: 0; } to { opacity: 1; } }
     </style>
 </head>
 <body>
@@ -257,8 +175,6 @@
             <span></span><span></span><span></span>
         </button>
         <ul class="nav-links" id="navLinks">
-            <li><a href="#features" onclick="closeMenu()">Features</a></li>
-            <li><a href="#screenshots" onclick="closeMenu()">Screenshots</a></li>
             <li><a href="#contact" onclick="closeMenu()">Contact</a></li>
             <li><a href="/updates.html" onclick="closeMenu()">Updates</a></li>
             <li>
@@ -326,21 +242,14 @@
 
 
     <section class="screenshots" id="screenshots">
-        <h2 class="section-title reveal">See It <span class="gradient-word">In Action</span></h2>
-        <p class="section-subtitle reveal">Swipe through gameplay moments</p>
+        <h2 class="section-title reveal">Game <span class="gradient-word">Preview</span></h2>
+        <p class="section-subtitle reveal">A look inside the game</p>
         <div class="screenshot-scroll">
             <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/1_slash_monsters.png" alt="Slash Monsters" loading="lazy"></div><p class="screenshot-label">Slash Monsters</p></div>
             <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/2_upgrade_power.png" alt="Upgrade Power" loading="lazy"></div><p class="screenshot-label">Upgrade Power</p></div>
             <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/3_worlds_conquer.png" alt="Conquer Worlds" loading="lazy"></div><p class="screenshot-label">Conquer Worlds</p></div>
             <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/4_spin_wheel.png" alt="Spin & Win" loading="lazy"></div><p class="screenshot-label">Spin & Win</p></div>
             <div class="screenshot-item"><div class="phone-frame"><img src="/images/screenshots/5_mini_games.png" alt="Mini Games" loading="lazy"></div><p class="screenshot-label">Mini Games</p></div>
-        </div>
-        <div class="scroll-dots" id="scrollDots">
-            <button class="scroll-dot active" data-index="0"></button>
-            <button class="scroll-dot" data-index="1"></button>
-            <button class="scroll-dot" data-index="2"></button>
-            <button class="scroll-dot" data-index="3"></button>
-            <button class="scroll-dot" data-index="4"></button>
         </div>
     </section>
 
@@ -435,10 +344,10 @@
                 </div>
                 <div class="form-group">
                     <label>Screenshots (up to 3, optional)</label>
-                    <input type="file" id="fileInput" multiple style="display:none" onchange="onFilePick(this)">
+                    <input type="file" id="fileInput" multiple accept="image/*" style="display:none" onchange="onFilePick(this)">
                     <div class="screenshot-box" id="ssBox" onclick="onBoxTap()">
                         <div class="thumb-row" id="thumbRow"></div>
-                        <div class="add-prompt" id="addPrompt">Tap to add images · 3 left</div>
+                        <div class="add-prompt" id="addPrompt"><span style="color:var(--cyan)">Drag</span> or <span style="color:var(--cyan)">Tap</span> to drop images · 3 left</div>
                     </div>
                     <p class="email-note">Max 3 images, 5MB each. Supported formats: Photos & Files.</p>
                 </div>
@@ -464,19 +373,12 @@
             <span>Colors Strike</span>
         </div>
         <div class="footer-links">
-            <a href="#features">Features</a>
             <a href="#contact">Contact</a>
             <a href="/updates.html">Updates</a>
             <a href="/privacy.html">Privacy Policy</a>
         </div>
         <p class="footer-copy">&copy; 2026 Colors Strike. All rights reserved.</p>
-        <p class="footer-made">Made with &#9876;&#65039; in Hong Kong</p>
     </footer>
-
-    <!-- BACK TO TOP -->
-    <button class="back-to-top" id="backToTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5m-7 7l7-7 7 7"/></svg>
-    </button>
 
     <div class="toast-overlay" id="toastOverlay" onclick="closeToast()">
         <div class="toast-card" onclick="event.stopPropagation()">
@@ -537,7 +439,7 @@
         /* ── FEEDBACK FORM ── */
         var imgs = [];
         var MAX = 3;
-        var MAX_BYTES = 5 * 1024 * 1024;
+        var MAX_BYTES = 5 * 1000 * 1000;
 
         var savedScrollY = 0;
 
@@ -546,11 +448,13 @@
             document.body.style.position = 'fixed';
             document.body.style.top = -savedScrollY + 'px';
             document.body.style.width = '100%';
+            document.body.style.overflowY = 'scroll';
         }
         function unlockBody() {
             document.body.style.position = '';
             document.body.style.top = '';
             document.body.style.width = '';
+            document.body.style.overflowY = '';
             window.scrollTo(0, savedScrollY);
         }
 
@@ -576,6 +480,35 @@
             document.getElementById('fileInput').click();
         }
 
+        /* ── DRAG & DROP ── */
+        (function() {
+            var box = document.getElementById('ssBox');
+            var dragCount = 0;
+            box.addEventListener('dragenter', function(e) {
+                e.preventDefault();
+                dragCount++;
+                if (imgs.length < MAX) box.classList.add('drag-over');
+            });
+            box.addEventListener('dragover', function(e) {
+                e.preventDefault();
+            });
+            box.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                dragCount--;
+                if (dragCount <= 0) { dragCount = 0; box.classList.remove('drag-over'); }
+            });
+            box.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dragCount = 0;
+                box.classList.remove('drag-over');
+                if (imgs.length >= MAX) return;
+                var dt = e.dataTransfer;
+                if (!dt || !dt.files.length) return;
+                var fakeInput = { files: dt.files, value: '' };
+                onFilePick(fakeInput);
+            });
+        })();
+
         function onFilePick(input) {
             var files = Array.from(input.files);
             input.value = '';
@@ -584,10 +517,15 @@
             var slots = MAX - imgs.length;
             if (slots <= 0) return;
 
-            var valid = [], tooLarge = 0;
+            var valid = [], tooLarge = 0, hasVideo = false;
             for (var i = 0; i < files.length; i++) {
-                if (files[i].size > MAX_BYTES) tooLarge++;
+                if (files[i].type && !files[i].type.startsWith('image/')) { hasVideo = true; continue; }
+                if (files[i].size >= MAX_BYTES) tooLarge++;
                 else valid.push(files[i]);
+            }
+            if (hasVideo && valid.length === 0 && tooLarge === 0) {
+                setTimeout(function(){ showToast('', 'Images Only', 'Videos are not supported. Please upload screenshots instead.'); }, 100);
+                return;
             }
 
             if (valid.length > slots) valid = valid.slice(0, slots);
@@ -600,6 +538,7 @@
             }
 
             var tl = tooLarge;
+            var hv = hasVideo;
             var done = 0;
             valid.forEach(function(file) {
                 var reader = new FileReader();
@@ -608,7 +547,11 @@
                     done++;
                     if (done === valid.length) {
                         render();
-                        if (tl > 0) {
+                        if (hv) {
+                            setTimeout(function() {
+                                showToast('', 'Images Only', 'Videos are not supported. Please upload screenshots instead.');
+                            }, 200);
+                        } else if (tl > 0) {
                             setTimeout(function() {
                                 showToast('', 'Image Too Large', 'Images must be under 5 MB each. ' + tl + ' image' + (tl>1?'s':'') + ' skipped.');
                             }, 200);
@@ -652,7 +595,7 @@
                 box.classList.add('at-limit');
             } else {
                 prompt.className = 'add-prompt';
-                prompt.textContent = 'Tap to add images \u00b7 ' + left + ' left';
+                prompt.innerHTML = '<span style="color:var(--cyan)">Drag</span> or <span style="color:var(--cyan)">Tap</span> to drop images \u00b7 ' + left + ' left';
                 box.classList.remove('at-limit');
             }
             box.style.display = 'none';
@@ -745,6 +688,8 @@
             }
         }
 
+        var bodyBgOriginal = '';
+
         function openPreview(src) {
             var ov = document.getElementById("imgPreview");
             var img = document.getElementById("previewImg");
@@ -753,6 +698,9 @@
             img.style.transform = 'scale(1)';
             ov.classList.add("show");
             previewOpen = true;
+            document.documentElement.style.background = '#000';
+            bodyBgOriginal = document.body.style.background;
+            document.body.style.background = '#000';
             lockBody();
             ov.addEventListener('touchstart', pTouchStart, { passive: false });
             ov.addEventListener('touchmove', pTouchMove, { passive: false });
@@ -763,19 +711,12 @@
             document.getElementById("previewImg").style.transform = 'scale(1)';
             pScale = 1;
             previewOpen = false;
+            document.documentElement.style.background = '';
+            document.body.style.background = bodyBgOriginal;
             unlockBody();
             ov.removeEventListener('touchstart', pTouchStart);
             ov.removeEventListener('touchmove', pTouchMove);
         }
-
-        /* ── BACK TO TOP ── */
-        (function() {
-            var btn = document.getElementById('backToTop');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 500) btn.classList.add('show');
-                else btn.classList.remove('show');
-            });
-        })();
 
         /* ── ACTIVE NAV LINK ── */
         (function() {
@@ -797,30 +738,6 @@
             });
         })();
 
-        /* ── SCREENSHOT DOTS ── */
-        (function() {
-            var scroll = document.querySelector('.screenshot-scroll');
-            var dots = document.querySelectorAll('.scroll-dot');
-            var items = document.querySelectorAll('.screenshot-item');
-            if (!scroll || !dots.length) return;
-
-            dots.forEach(function(dot) {
-                dot.addEventListener('click', function() {
-                    var idx = parseInt(dot.dataset.index);
-                    if (items[idx]) items[idx].scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
-                });
-            });
-
-            scroll.addEventListener('scroll', function() {
-                var scrollLeft = scroll.scrollLeft;
-                var scrollWidth = scroll.scrollWidth - scroll.clientWidth;
-                var progress = scrollLeft / scrollWidth;
-                var activeIdx = Math.round(progress * (dots.length - 1));
-                dots.forEach(function(d, i) {
-                    d.classList.toggle('active', i === activeIdx);
-                });
-            });
-        })();
     </script>
 
     <div class="img-preview-overlay" id="imgPreview" onclick="closePreview()"><div style="position:relative;display:inline-block">

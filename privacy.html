@@ -2,32 +2,46 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
     <title>Privacy Policy — Colors Strike</title>
     <link rel="icon" href="/images/assets/app-icon.jpeg">
+    <link rel="stylesheet" href="/shared.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', -apple-system, sans-serif; background: #06061a; color: #e8e8ff; line-height: 1.8; }
+        /* CONTENT */
         .container { max-width: 700px; margin: 0 auto; padding: 60px 24px 80px; }
-        .back-link { display: inline-flex; align-items: center; gap: 6px; color: #6bb5ff; text-decoration: none; font-size: 14px; font-weight: 600; margin-bottom: 40px; transition: opacity 0.2s; }
-        .back-link:hover { opacity: 0.8; }
-        h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(135deg, #6bb5ff, #d66bff); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .updated { color: #8888bb; font-size: 14px; margin-bottom: 40px; }
-        h2 { font-size: 22px; font-weight: 800; margin-top: 40px; margin-bottom: 12px; color: #e8e8ff; }
-        p, li { color: #c0c0dd; font-size: 15px; margin-bottom: 12px; }
-        ul { padding-left: 24px; margin-bottom: 16px; }
-        li { margin-bottom: 6px; }
-        strong { color: #e8e8ff; }
-        a { color: #6bb5ff; }
-        .divider { border: none; border-top: 1px solid #1e1e5a; margin: 40px 0; }
-        footer { text-align: center; color: #8888bb; font-size: 13px; opacity: 0.6; margin-top: 60px; }
+        .container h1 { font-size: 36px; font-weight: 900; margin-bottom: 8px; background: linear-gradient(135deg, var(--cyan), var(--teal)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .updated { color: var(--text-dim); font-size: 14px; margin-bottom: 40px; }
+        .container h2 { font-size: 22px; font-weight: 800; margin-top: 40px; margin-bottom: 12px; color: var(--text); }
+        .container p, .container li { color: var(--text-dim); font-size: 15px; margin-bottom: 12px; line-height: 1.8; }
+        .container ul { padding-left: 24px; margin-bottom: 16px; }
+        .container li { margin-bottom: 6px; }
+        .container strong { color: var(--text); }
+        .container a { color: var(--cyan); }
+        .divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <a href="/" class="back-link">← Back to Colors Strike</a>
+    <nav>
+        <a href="/" class="nav-logo">
+            <img src="/images/assets/app-icon.jpeg" alt="Colors Strike">
+            <span>Colors Strike</span>
+        </a>
+        <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+            <span></span><span></span><span></span>
+        </button>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="/#contact" onclick="closeMenu()">Contact</a></li>
+            <li><a href="/updates.html" onclick="closeMenu()">Updates</a></li>
+            <li>
+                <a href="https://testflight.apple.com/join/sqFFH8gq" class="nav-cta" onclick="closeMenu()">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+                    Download
+                </a>
+            </li>
+        </ul>
+    </nav>
 
+    <div class="container">
         <h1>Privacy Policy</h1>
         <p class="updated">Last updated: March 1, 2026</p>
 
@@ -84,10 +98,39 @@
 
         <h2>10. Contact Us</h2>
         <p>If you have questions about this privacy policy or your data, please reach out through our <a href="/#contact">feedback form</a>.</p>
-
-        <hr class="divider">
-
-        <footer>© 2026 Colors Strike. All rights reserved.</footer>
     </div>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="/images/assets/app-icon.jpeg" alt="Colors Strike">
+            <span>Colors Strike</span>
+        </div>
+        <div class="footer-links">
+            <a href="/">Home</a>
+            <a href="/#contact">Contact</a>
+            <a href="/updates.html">Updates</a>
+        </div>
+        <p class="footer-copy">&copy; 2026 Colors Strike. All rights reserved.</p>
+    </footer>
+
+    <script>
+        window.scrollTo(0, 0);
+        if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+        function toggleMenu() {
+            document.getElementById('hamburger').classList.toggle('open');
+            document.getElementById('navLinks').classList.toggle('open');
+        }
+        function closeMenu() {
+            document.getElementById('hamburger').classList.remove('open');
+            document.getElementById('navLinks').classList.remove('open');
+        }
+
+        window.addEventListener('scroll', function() {
+            var nav = document.querySelector('nav');
+            if (window.scrollY > 60) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
+        });
+    </script>
 </body>
 </html>
