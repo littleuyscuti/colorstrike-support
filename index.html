@@ -155,11 +155,12 @@
         .success-view p { color: var(--text-dim); }
 
         /* PREVIEW OVERLAY */
-        .img-preview-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 10000; background: rgba(0,0,0,0.65); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; touch-action: none; }
+        .img-preview-overlay { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 10000; background: rgba(0,0,0,0.85); display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.2s ease; touch-action: none; overflow: hidden; }
         .img-preview-overlay.show { opacity: 1; pointer-events: auto; }
         .img-preview-overlay * { touch-action: none; }
-        .img-preview-overlay img { max-width: 90vw; max-height: 85vh; border-radius: 12px; object-fit: contain; transform-origin: center center; will-change: transform; }
-        .img-preview-close { position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%; background: rgba(0,0,0,0.85); border: none; color: transparent; font-size: 0; cursor: pointer; padding: 0; } .img-preview-close::before, .img-preview-close::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 2px; background: #fff; border-radius: 1px; } .img-preview-close::before { transform: translate(-50%,-50%) rotate(45deg); } .img-preview-close::after { transform: translate(-50%,-50%) rotate(-45deg); }
+        .img-preview-wrap { position: relative; display: inline-block; transform-origin: center center; will-change: transform; }
+        .img-preview-overlay img { max-width: 90vw; max-height: 85vh; border-radius: 12px; object-fit: contain; }
+        .img-preview-close { position: absolute; top: -18px; right: -18px; width: 36px; height: 36px; border-radius: 50%; background: rgba(0,0,0,0.85); border: none; color: transparent; font-size: 0; cursor: pointer; padding: 0; z-index: 1; } .img-preview-close::before, .img-preview-close::after { content: ""; position: absolute; top: 50%; left: 50%; width: 14px; height: 2px; background: #fff; border-radius: 1px; } .img-preview-close::before { transform: translate(-50%,-50%) rotate(45deg); } .img-preview-close::after { transform: translate(-50%,-50%) rotate(-45deg); }
 
         /* SCREENSHOT DOTS */
 
@@ -509,6 +510,24 @@
             });
         })();
 
+        function compressImage(dataUrl, callback) {
+            var img = new Image();
+            img.onload = function() {
+                var maxDim = 1920;
+                var w = img.width, h = img.height;
+                if (w > maxDim || h > maxDim) {
+                    if (w > h) { h = Math.round(h * maxDim / w); w = maxDim; }
+                    else { w = Math.round(w * maxDim / h); h = maxDim; }
+                }
+                var canvas = document.createElement('canvas');
+                canvas.width = w;
+                canvas.height = h;
+                canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+                callback(canvas.toDataURL('image/jpeg', 0.8));
+            };
+            img.src = dataUrl;
+        }
+
         function onFilePick(input) {
             var files = Array.from(input.files);
             input.value = '';
@@ -519,12 +538,12 @@
 
             var valid = [], tooLarge = 0, hasVideo = false;
             for (var i = 0; i < files.length; i++) {
-                if (files[i].type && !files[i].type.startsWith('image/')) { hasVideo = true; continue; }
+                if (!files[i].type || !files[i].type.startsWith('image/')) { hasVideo = true; continue; }
                 if (files[i].size >= MAX_BYTES) tooLarge++;
                 else valid.push(files[i]);
             }
             if (hasVideo && valid.length === 0 && tooLarge === 0) {
-                setTimeout(function(){ showToast('', 'Images Only', 'Videos are not supported. Please upload screenshots instead.'); }, 100);
+                showToast('', 'Images Only', 'Videos are not supported. Please upload screenshots instead.');
                 return;
             }
 
@@ -532,7 +551,7 @@
 
             if (valid.length === 0) {
                 if (tooLarge > 0) {
-                    setTimeout(function(){ showToast('', 'Image Too Large', 'Images must be under 5 MB each.'); }, 100);
+                    showToast('', 'Image Too Large', 'Images must be under 5 MB each.');
                 }
                 return;
             }
@@ -612,7 +631,12 @@
             btn.disabled = true; btn.textContent = 'Sending...';
             try {
                 var body = { type: type, message: msg, email: email };
-                if (imgs.length > 0) body.images = imgs.map(function(d){ return d.split(',')[1]; });
+                if (imgs.length > 0) {
+                    var compressed = await Promise.all(imgs.map(function(dataUrl) {
+                        return new Promise(function(resolve) { compressImage(dataUrl, resolve); });
+                    }));
+                    body.images = compressed.map(function(d) { return d.split(',')[1]; });
+                }
                 var r = await fetch('/api/feedback', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -652,70 +676,55 @@
         }
 
         var pScale = 1;
+        var pTx = 0, pTy = 0;
         var pLastDist = 0;
+        var pLastGestureScale = 1;
         var previewOpen = false;
+        var pDragging = false;
+        var pDragStartX = 0, pDragStartY = 0;
+        var pCenterX = 0, pCenterY = 0;
+        var pMouseDragging = false, pMouseMoved = false;
+        var pMouseStartX = 0, pMouseStartY = 0;
 
-        /* Block native zoom at document level when preview is open */
-        document.addEventListener('touchstart', function(e) {
-            if (previewOpen && e.touches.length >= 2) e.preventDefault();
-        }, { passive: false });
-        document.addEventListener('touchmove', function(e) {
-            if (previewOpen) e.preventDefault();
-        }, { passive: false });
-
-        function pTouchStart(e) {
-            e.stopPropagation();
-            if (e.touches.length === 2) {
-                e.preventDefault();
-                pLastDist = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-            }
-        }
-        function pTouchMove(e) {
-            e.preventDefault();
-            e.stopPropagation();
-            if (e.touches.length === 2) {
-                var dist = Math.hypot(
-                    e.touches[0].clientX - e.touches[1].clientX,
-                    e.touches[0].clientY - e.touches[1].clientY
-                );
-                var ratio = dist / pLastDist;
-                pScale = Math.min(5, Math.max(1, pScale * ratio));
-                document.getElementById("previewImg").style.transform = 'scale(' + pScale + ')';
-                pLastDist = dist;
-            }
+        function pApplyTransform() {
+            var wrap = document.getElementById("previewWrap");
+            wrap.style.transform = 'translate(' + pTx + 'px, ' + pTy + 'px) scale(' + pScale + ')';
+            wrap.style.cursor = pScale > 1 ? (pMouseDragging ? 'grabbing' : 'grab') : '';
         }
 
-        var bodyBgOriginal = '';
+        /* Shared zoom math: anchor point (mx,my) stays fixed on the image */
+        function pZoomAt(mx, my, newScale) {
+            newScale = Math.min(5, Math.max(1, newScale));
+            var r = newScale / pScale;
+            if (r === 1) return;
+            var newTx = (mx - pCenterX) * (1 - r) + pTx * r;
+            var newTy = (my - pCenterY) * (1 - r) + pTy * r;
+            if (newScale <= 1) { newTx = 0; newTy = 0; }
+            pScale = newScale;
+            pTx = newTx;
+            pTy = newTy;
+            pApplyTransform();
+        }
 
         function openPreview(src) {
-            var ov = document.getElementById("imgPreview");
             var img = document.getElementById("previewImg");
             img.src = src;
-            pScale = 1;
-            img.style.transform = 'scale(1)';
-            ov.classList.add("show");
+            pScale = 1; pTx = 0; pTy = 0;
+            document.getElementById("previewWrap").style.transform = 'scale(1)';
+            document.getElementById("previewWrap").style.cursor = '';
+            document.getElementById("imgPreview").classList.add("show");
             previewOpen = true;
-            document.documentElement.style.background = '#000';
-            bodyBgOriginal = document.body.style.background;
-            document.body.style.background = '#000';
-            lockBody();
-            ov.addEventListener('touchstart', pTouchStart, { passive: false });
-            ov.addEventListener('touchmove', pTouchMove, { passive: false });
+            pCenterX = window.innerWidth / 2;
+            pCenterY = window.innerHeight / 2;
         }
         function closePreview() {
-            var ov = document.getElementById("imgPreview");
-            ov.classList.remove("show");
-            document.getElementById("previewImg").style.transform = 'scale(1)';
-            pScale = 1;
+            if (pMouseMoved) { pMouseMoved = false; return; }
+            document.getElementById("imgPreview").classList.remove("show");
+            pScale = 1; pTx = 0; pTy = 0;
+            pMouseDragging = false; pMouseMoved = false;
+            document.getElementById("previewWrap").style.transform = 'scale(1)';
+            document.getElementById("previewWrap").style.cursor = '';
             previewOpen = false;
-            document.documentElement.style.background = '';
-            document.body.style.background = bodyBgOriginal;
-            unlockBody();
-            ov.removeEventListener('touchstart', pTouchStart);
-            ov.removeEventListener('touchmove', pTouchMove);
         }
 
         /* ── ACTIVE NAV LINK ── */
@@ -740,8 +749,117 @@
 
     </script>
 
-    <div class="img-preview-overlay" id="imgPreview" onclick="closePreview()"><div style="position:relative;display:inline-block">
+    <div class="img-preview-overlay" id="imgPreview" onclick="closePreview()"><div class="img-preview-wrap" id="previewWrap">
         <img id="previewImg" src="" alt="Preview"><button class="img-preview-close" onclick="closePreview()">&times;</button></div>
     </div>
+    <script>
+    (function() {
+        var ov = document.getElementById("imgPreview");
+
+        /* Touch: pinch zoom + drag */
+        ov.addEventListener('touchstart', function(e) {
+            if (e.touches.length >= 2) {
+                e.preventDefault();
+                e.stopPropagation();
+                pDragging = false;
+                pLastDist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY);
+            } else if (e.touches.length === 1 && pScale > 1) {
+                pDragging = true;
+                pDragStartX = e.touches[0].clientX - pTx;
+                pDragStartY = e.touches[0].clientY - pTy;
+            }
+        }, { passive: false });
+        ov.addEventListener('touchmove', function(e) {
+            e.preventDefault(); e.stopPropagation();
+            if (e.touches.length === 2 && pLastDist > 0) {
+                pDragging = false;
+                var dist = Math.hypot(
+                    e.touches[0].clientX - e.touches[1].clientX,
+                    e.touches[0].clientY - e.touches[1].clientY);
+                var midX = (e.touches[0].clientX + e.touches[1].clientX) / 2;
+                var midY = (e.touches[0].clientY + e.touches[1].clientY) / 2;
+                pZoomAt(midX, midY, pScale * (dist / pLastDist));
+                pLastDist = dist;
+            } else if (e.touches.length === 1 && pDragging && pScale > 1) {
+                pTx = e.touches[0].clientX - pDragStartX;
+                pTy = e.touches[0].clientY - pDragStartY;
+                pApplyTransform();
+            }
+        }, { passive: false });
+        ov.addEventListener('touchend', function(e) {
+            if (e.touches.length < 2) pLastDist = 0;
+            if (e.touches.length === 0) pDragging = false;
+        });
+
+        /* Wheel: scroll-to-pan + Chrome/Firefox pinch zoom */
+        ov.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            if (e.ctrlKey) {
+                pZoomAt(e.clientX, e.clientY, pScale * (1 - e.deltaY * 0.01));
+            } else if (pScale > 1) {
+                pTx -= e.deltaX;
+                pTy -= e.deltaY;
+                pApplyTransform();
+            }
+        }, { passive: false });
+
+        /* Safari gesture: pinch zoom */
+        ov.addEventListener('gesturestart', function(e) {
+            e.preventDefault();
+            pLastGestureScale = e.scale;
+        }, { passive: false });
+        ov.addEventListener('gesturechange', function(e) {
+            e.preventDefault();
+            var cx = e.clientX || pCenterX;
+            var cy = e.clientY || pCenterY;
+            pZoomAt(cx, cy, pScale * (e.scale / pLastGestureScale));
+            pLastGestureScale = e.scale;
+        }, { passive: false });
+        ov.addEventListener('gestureend', function(e) {
+            e.preventDefault();
+        }, { passive: false });
+
+        /* Mouse drag to pan when zoomed */
+        ov.addEventListener('mousedown', function(e) {
+            if (pScale <= 1) return;
+            e.preventDefault();
+            pMouseDragging = true;
+            pMouseMoved = false;
+            pMouseStartX = e.clientX - pTx;
+            pMouseStartY = e.clientY - pTy;
+            document.getElementById("previewWrap").style.cursor = 'grabbing';
+        });
+        document.addEventListener('mousemove', function(e) {
+            if (!pMouseDragging) return;
+            pMouseMoved = true;
+            pTx = e.clientX - pMouseStartX;
+            pTy = e.clientY - pMouseStartY;
+            pApplyTransform();
+        });
+        document.addEventListener('mouseup', function() {
+            if (pMouseDragging) {
+                pMouseDragging = false;
+                var wrap = document.getElementById("previewWrap");
+                if (wrap) wrap.style.cursor = pScale > 1 ? 'grab' : '';
+            }
+        });
+    })();
+
+    /* Block all zoom on toast notifications */
+    (function() {
+        var toast = document.getElementById("toastOverlay");
+        function block(e) { e.preventDefault(); }
+        toast.addEventListener('wheel', block, { passive: false });
+        toast.addEventListener('gesturestart', block, { passive: false });
+        toast.addEventListener('gesturechange', block, { passive: false });
+        toast.addEventListener('gestureend', block, { passive: false });
+        toast.addEventListener('touchstart', function(e) {
+            if (e.touches.length > 1) e.preventDefault();
+        }, { passive: false });
+        toast.addEventListener('touchmove', block, { passive: false });
+    })();
+    </script>
 </body>
 </html>
